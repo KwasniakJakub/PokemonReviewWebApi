@@ -13,15 +13,12 @@ namespace PokemonReviewApp.Controllers;
 public class OwnerController : Controller
 {
     private readonly IOwnerRepository _ownerRepository;
-    private readonly DataContext _context;
     private readonly IMapper _mapper;
 
     public OwnerController(IOwnerRepository ownerRepository,
-        DataContext context,
         IMapper mapper)
     {
         _ownerRepository = ownerRepository;
-        _context = context;
         _mapper = mapper;
     }
 
