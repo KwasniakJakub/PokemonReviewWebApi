@@ -19,7 +19,7 @@ public class CategoryRepository : ICategoryRepository
 
     public Category GetCategory(int id)
     {
-        return _context.Categories.Where(c => c.Id == id).FirstOrDefault();
+        return  _context.Categories.Where(c => c.Id == id).FirstOrDefault();
     }
 
     public ICollection<Pokemon> GetPokemonByCategory(int categoryId)
@@ -38,6 +38,12 @@ public class CategoryRepository : ICategoryRepository
     public bool CreateCategory(Category category)
     {
         _context.Add(category);
+        return Save();
+    }
+
+    public bool UpdateCategory(Category category)
+    {
+        _context.Update(category);
         return Save();
     }
 

@@ -46,6 +46,12 @@ public class CountryRepository : ICountryRepository
         return Save();
     }
 
+    public bool UpdateCountry(Country country)
+    {
+        _contex.Update(country);
+        return Save();
+    }
+
     public bool Save()
     {
         var saved = _contex.SaveChanges();

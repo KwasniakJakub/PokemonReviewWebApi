@@ -103,4 +103,33 @@ public class ReviewController : Controller
 
         return Ok("Succesfully created");
     }
+
+    [HttpPut("{reviewId}")]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(404)]
+    public IActionResult UpdateCategory(int reviewId, [FromBody] ReviewDto updatedReview)
+    {
+        if (updatedReview == null)
+            return BadRequest(ModelState);
+
+        if (reviewId != updatedReview.Id)
+            return BadRequest(ModelState);
+
+        if (!_reviewRepository.ReviewExist(reviewId))
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var reviewMap = _mapper.Map<Review>(updatedReview);
+
+        if (!_reviewRepository.UpdateReview(reviewMap))
+        {
+            ModelState.AddModelError("", "Something went wrong updating category");
+            return StatusCode(500, ModelState);
+        }
+
+        return NoContent();
+    }
 }
