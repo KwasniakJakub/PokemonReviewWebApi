@@ -97,7 +97,7 @@ public class ReviewerController : Controller
     [ProducesResponseType(400)]
     [ProducesResponseType(204)]
     [ProducesResponseType(404)]
-    public IActionResult UpdateCategory(int reviewerId, [FromBody] ReviewerDto updatedReviewer)
+    public IActionResult UpdateReviewer(int reviewerId, [FromBody] ReviewerDto updatedReviewer)
     {
         if (updatedReviewer == null)
             return BadRequest(ModelState);
@@ -118,6 +118,26 @@ public class ReviewerController : Controller
             ModelState.AddModelError("", "Something went wrong updating category");
             return StatusCode(500, ModelState);
         }
+
+        return NoContent();
+    }
+
+    [HttpDelete("{reviewerId}")]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(404)]
+    public IActionResult DeleteReviewer(int reviewerId)
+    {
+        if (_reviewerRepository.ReviewerExists(reviewerId))
+            return NotFound();
+
+        var reviewerToDelete = _reviewerRepository.GetReviewer(reviewerId);
+
+        if (ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        if (!_reviewerRepository.DeleteReviewer(reviewerToDelete))
+            ModelState.AddModelError("", "Something went wrong deleting reviewer");
 
         return NoContent();
     }
