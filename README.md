@@ -51,9 +51,16 @@ Usuwa Pokemona na podstawie jego pokemonId, usuwa również związane z nim rece
 
 ## Uruchamianie
 
-1. Sklonuj repozytorium: `git clone https://github.com/twoja-nazwa-uzytkownika/ProjektInterfejsuAPI.git`
+1. Sklonuj repozytorium: `https://github.com/KwasniakJakub/PokemonReviewWebApi.git`
 2. Otwórz projekt w wybranym środowisku programistycznym.
-3. Skompiluj i uruchom aplikację.
+3. W pliku appsettings.json określ połączenie z bazą danych (np. lokalną)
+   {
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=MyDatabase;Integrated Security=True;"
+  }
+  // ...
+}
+5. Skompiluj i uruchom aplikację.
 
 ```bash
 dotnet build
